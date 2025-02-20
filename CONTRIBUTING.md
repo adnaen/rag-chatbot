@@ -4,7 +4,7 @@
    - Click the "Fork" button on the top-right of this repo.
 2. **Clone Your Fork**  
    ```bash
-   git clone https://github.com/<your-username>/rag-chatbot.git
+   git clone https://github.com/<your-username>/rag-college-chatbot.git
    ```
 3. **Create a New Branch**  
    ```bash
