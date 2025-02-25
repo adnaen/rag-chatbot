@@ -10,7 +10,17 @@ from src.utils import BasePath, logger
 
 
 class BaseScraper:
+    """
+    BaseScraper class which contain all steps to be perform while scraping
+    """
+
     def __init__(self, category: str, sitemap_url: str) -> None:
+        """
+        Initializing BaseScraper class.
+        Args:
+            category (str) : category to be scrap, !!it should be singular!!.
+            sitemap_url (URL_LIKE) : sitemap index link to the category
+        """
         self.category = category
         self.sitemap_url = sitemap_url
         self.save_dir = BasePath.DATA_DIR / f"raw/{category}s"
@@ -20,6 +30,15 @@ class BaseScraper:
         )
 
     def fetch_sitemap_links(self) -> list[str]:
+        """
+        fetch all child pages url from the sitemap.
+
+        Args:
+            None
+
+        Returns:
+            list[str] : list of urls
+        """
         logger.info(f"Fetching urls from : {self.sitemap_url}")
         try:
             response = requests.get(self.sitemap_url)
@@ -41,7 +60,13 @@ class BaseScraper:
             return []
 
     def fetch_content(self, url: str) -> BeautifulSoup | None:
-        """Fetches page content."""
+        """Fetches page content.
+        Args:
+            url (URL_LIKE) : url to scrap the page text
+
+        Returns:
+            BeautifulSoup | None : if success all text in the url, else None
+        """
         try:
             response = requests.get(url)
             if response.status_code == 200:
@@ -56,7 +81,14 @@ class BaseScraper:
             return None
 
     def save_data(self, content: Any, index: int) -> None:
-        """Saves extracted text and metadata."""
+        """Saves extracted text and metadata.
+        Args:
+            content (any) : content to be stored in .txt file.
+            index (int) : current index number. e.g. 98/190
+
+        Returns:
+            None
+        """
         try:
             self.filename = (
                 f"{self.category}_{index}_{datetime.now().strftime('%Y%m%d%H%M')}.txt"
@@ -80,6 +112,21 @@ class BaseScraper:
         status: bool = True,
         err_msg: str | None = None,
     ) -> None:
+        """
+        Args:
+            id (int) : index like.
+            title (str) : title of the stored file.
+            word_count (int)
+            num_paragraphs (int)
+            keywords (list[str]) : main keyword to identify the file content.
+            summary (str) : a breif of what is include in the file
+            url (URL_LIKE) : fetched domain.
+            status (bool) : either scrap success or not.
+            err_msg (str) | None : if status is false, what is the reason for it.
+
+        Returns:
+            None
+        """
         metadata_file = self.save_dir / "metadata.json"
         data = {
             "id": id,
