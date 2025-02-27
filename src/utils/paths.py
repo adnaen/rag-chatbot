@@ -18,3 +18,4 @@ class BasePath:
     BLOG_SITEMAP_URL: str = "https://empirecollege.in/post-sitemap.xml"
     PROGRAMTYPE_SITEMAP_URL: str = "https://empirecollege.in/program-type-sitemap.xml"
     ABOUT_SITEMAP_URL: str = "https://empirecollege.in/page-sitemap.xml"
+    PROGRAM_SITEMAP_URL: str ="https://empirecollege.in/program-sitemap.xml"
