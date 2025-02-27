@@ -7,6 +7,13 @@
    git clone https://github.com/<your-username>/rag-college-chatbot.git
    ```
 3. **Create a New Branch**  
+> [!NOTE]
+> Branching convertion
+> 
+> experiment/{short-description}-{your-name}
+> 
+> e.g. feature/scrap-blog-john, refactor/scrap-login-Estella
+
    ```bash
    git checkout -b <branch_name>
    ```
