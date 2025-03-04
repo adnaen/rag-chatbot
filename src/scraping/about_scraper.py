@@ -1,5 +1,5 @@
 from colorama import Fore
-from src.scraping import BaseScraper
+from src.scraping import BaseScraper, preprocess_text
 from src.utils import logger
 
 
@@ -26,14 +26,14 @@ class AboutScraper(BaseScraper):
                     word_count = len(text.split())
                     num_paragraphs = text.count("\n")
 
-                    self.save_data(content=text, index=index)
+                    self.save_data(content=preprocess_text(text), index=index)
                     self.save_metadata(
                         id=index,
                         url=url,
                         word_count=word_count,
                         num_paragraphs=num_paragraphs,
-                        title="About Page",
-                        summary="Summary of the about page content",
+                        title="about page",
+                        summary="summary of the about page content",
                         keywords=["about", "company", "information"],
                     )
                 else:

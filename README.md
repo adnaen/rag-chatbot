@@ -6,4 +6,4 @@ A Retrieval-Augmented Generation (RAG) chatbot that helps college website visito
 welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before start.
 
 ### License
-This project is licensed under the **[MIT](LICENSE)** – feel free to use or modify.  
+**[MIT](LICENSE)** 

@@ -1,6 +1,6 @@
 from colorama import Fore
 
-from src.scraping import BaseScraper
+from src.scraping import BaseScraper, preprocess_text
 from src.utils import logger
 
 
@@ -23,7 +23,7 @@ class ProgramScraper(BaseScraper):
                     word_count = len(text.split())
                     num_paragraphs = text.count("\n")
 
-                    self.save_data(content=text, index=index)
+                    self.save_data(content=preprocess_text(text), index=index)
                     self.save_metadata(
                         id=index,
                         url=url,
@@ -34,8 +34,6 @@ class ProgramScraper(BaseScraper):
                         keywords=["none", "noone"],
                     )
             else:
-                logger.error(
-                    "there is no class such as 'program', scraping failed."
-                )
+                logger.error("there is no class such as 'program', scraping failed.")
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")
