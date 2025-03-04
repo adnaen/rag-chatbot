@@ -8,3 +8,6 @@ soupsieve==2.6
 typing_extensions==4.12.2
 urllib3==2.3.0
 colorama==0.4.6
+black
+pylint
+pre-commit
