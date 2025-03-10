@@ -19,6 +19,7 @@
    ```
 4. **Make Your Changes**  
    - Follow the coding guidelines.
+   - Install pre-commit via `pre-commit install`
    - Keep commits clear and descriptive.
 5. **Push Your Changes**  
    ```bash

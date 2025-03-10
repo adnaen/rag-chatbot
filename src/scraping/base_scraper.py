@@ -29,12 +29,12 @@ class BaseScraper:
             f"Initialize BaseScraper with\ncategory: {self.category}\nsitemap url: {self.sitemap_url}\nsave dir: {self.save_dir}"
         )
 
-    def fetch_sitemap_links(self) -> list[str]:
+    def fetch_sitemap_links(self, exclude: list[str] | None = None) -> list[str]:
         """
         fetch all child pages url from the sitemap.
 
         Args:
-            None
+            exclude (list[str]) : list of urls to exclude from the fetched urls.
 
         Returns:
             list[str] : list of urls
@@ -46,6 +46,10 @@ class BaseScraper:
                 soup = BeautifulSoup(response.text, "lxml-xml")
                 each_pages = soup.find_all("url")
                 urls = [each.find("loc").text for each in each_pages]
+                if exclude:
+                    logger.info(f"excluding urls : {exclude}")
+                    urls = [url for url in urls if url not in exclude]
+
                 logger.info(f"fetched url count : {len(urls)}")
                 logger.info(
                     f"successfully fetched all urls from {self.category} sitemap"
@@ -80,7 +84,14 @@ class BaseScraper:
             logger.exception(f"something went wrong as : {e}")
             return None
 
-    def save_data(self, content: Any, index: int) -> None:
+    def get_page_name(self, url: str) -> str:
+        import re
+
+        pattern = r"[^/]+(?=\/?$)"
+        match = re.search(pattern, url)
+        return match.group()
+
+    def save_data(self, content: Any, index: int, url: str) -> None:
         """Saves extracted text and metadata.
         Args:
             content (any) : content to be stored in .txt file.
@@ -90,9 +101,7 @@ class BaseScraper:
             None
         """
         try:
-            self.filename = (
-                f"{self.category}_{index}_{datetime.now().strftime('%Y%m%d%H%M')}.txt"
-            )
+            self.filename = f"{self.get_page_name(url)}.txt"
             file_path = self.save_dir / self.filename
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(content)
@@ -106,8 +115,6 @@ class BaseScraper:
         title: str,
         word_count: int,
         num_paragraphs: int,
-        keywords: list[str],
-        summary: str,
         url: str,
         status: bool = True,
         err_msg: str | None = None,
@@ -118,8 +125,6 @@ class BaseScraper:
             title (str) : title of the stored file.
             word_count (int)
             num_paragraphs (int)
-            keywords (list[str]) : main keyword to identify the file content.
-            summary (str) : a breif of what is include in the file
             url (URL_LIKE) : fetched domain.
             status (bool) : either scrap success or not.
             err_msg (str) | None : if status is false, what is the reason for it.
@@ -137,8 +142,6 @@ class BaseScraper:
             "date_scraped": str(datetime.now()),
             "word_count": word_count,
             "num_paragraphs": num_paragraphs,
-            "keywords": keywords,
-            "summary": summary,
             "scraped_status": "success" if status else "failed",
             "error_message": err_msg,
         }
@@ -147,6 +150,26 @@ class BaseScraper:
             with open(metadata_file, "r", encoding="utf-8") as f:
                 metadata = json.load(f)
 
+        metadata.append(data)
+
+        with open(metadata_file, "w", encoding="utf-8") as f:
+            json.dump(metadata, f, indent=4)
+
+    def save_global_metadata(self, data: dict) -> None:
+        """Save global metadata for the category.
+        Args:
+            data (dict) : metadata to be stored.
+
+        Returns:
+            None
+        """
+        metadata_file = BasePath.DATA_DIR / "raw/metadata.json"
+        metadata = []
+        if os.path.exists(metadata_file):
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                metadata = json.load(f)
+
+        data.update({"stored_path": str(self.save_dir)})
         metadata.append(data)
 
         with open(metadata_file, "w", encoding="utf-8") as f:
