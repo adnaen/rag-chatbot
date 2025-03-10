@@ -11,6 +11,7 @@ class ProgramTypeScraper(BaseScraper):
         """Fetches all links from sitemap and scrapes each page."""
         urls = self.fetch_sitemap_links()
         try:
+            self.url_len = len(urls)
             for index, url in enumerate(urls, start=1):
                 soup = self.fetch_content(url)
                 programtype_content = soup.find(class_="programPage")
@@ -22,20 +23,24 @@ class ProgramTypeScraper(BaseScraper):
                     word_count = len(text.split())
                     num_paragraphs = text.count("\n")
 
-                    self.save_data(content=preprocess_text(text), index=index)
+                    self.save_data(content=preprocess_text(text), index=index, url=url)
                     self.save_metadata(
                         id=index,
                         url=url,
                         word_count=word_count,
                         num_paragraphs=num_paragraphs,
-                        title="none",
-                        summary="none",
-                        keywords=["none", "none"],
+                        title=self.get_page_name(url),
                     )
 
                 else:
                     logger.error(
                         "there is no class such as 'program page', scraping failed."
                     )
+
+            global_info = {
+                "total_pages": str(self.url_len),
+                "category": str(self.category),
+            }
+            self.save_global_metadata(data=global_info)
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")
