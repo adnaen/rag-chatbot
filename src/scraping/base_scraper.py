@@ -1,12 +1,13 @@
 import os
-import json
 from typing import Any
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 from colorama import Fore
 
-from src.utils import BasePath, logger
+from src.config import logger
+from src.config import paths
+from src.utils.file_utils import _save_file, _load_json, _dump_json
 
 
 class BaseScraper:
@@ -23,7 +24,7 @@ class BaseScraper:
         """
         self.category = category
         self.sitemap_url = sitemap_url
-        self.save_dir = BasePath.DATA_DIR / f"raw/{category}s"
+        self.save_dir = paths.DATA_DIR / f"raw/{category}s"
         os.makedirs(self.save_dir, exist_ok=True)
         logger.info(
             f"Initialize BaseScraper with\ncategory: {self.category}\nsitemap url: {self.sitemap_url}\nsave dir: {self.save_dir}"
@@ -103,8 +104,7 @@ class BaseScraper:
         try:
             self.filename = f"{self.get_page_name(url)}.txt"
             file_path = self.save_dir / self.filename
-            with open(file_path, "w", encoding="utf-8") as f:
-                f.write(content)
+            _save_file(content=content, path=file_path)
             logger.info(f"{Fore.YELLOW}file saved in{Fore.RESET} {file_path}")
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")
@@ -147,13 +147,10 @@ class BaseScraper:
         }
         metadata = []
         if os.path.exists(metadata_file):
-            with open(metadata_file, "r", encoding="utf-8") as f:
-                metadata = json.load(f)
-
+            metadata = _load_json(path=metadata_file)
         metadata.append(data)
 
-        with open(metadata_file, "w", encoding="utf-8") as f:
-            json.dump(metadata, f, indent=4)
+        _dump_json(content=metadata, path=metadata_file)
 
     def save_global_metadata(self, data: dict) -> None:
         """Save global metadata for the category.
@@ -163,17 +160,15 @@ class BaseScraper:
         Returns:
             None
         """
-        metadata_file = BasePath.DATA_DIR / "raw/metadata.json"
+        metadata_file = paths.DATA_DIR / "raw/metadata.json"
         metadata = []
         if os.path.exists(metadata_file):
-            with open(metadata_file, "r", encoding="utf-8") as f:
-                metadata = json.load(f)
+            metadata = _load_json(path=metadata_file)
 
         data.update({"stored_path": str(self.save_dir)})
         metadata.append(data)
 
-        with open(metadata_file, "w", encoding="utf-8") as f:
-            json.dump(metadata, f, indent=4)
+        _dump_json(content=metadata, path=metadata_file)
 
     def scrape(self):
         """This method should be implemented by child classes."""

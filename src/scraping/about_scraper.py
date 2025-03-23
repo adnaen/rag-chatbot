@@ -1,6 +1,7 @@
 from colorama import Fore
-from src.scraping import BaseScraper, preprocess_text
-from src.utils import logger
+from src.scraping import BaseScraper
+from src.utils.data_utils import _preprocess_text
+from src.config import logger
 
 
 class AboutScraper(BaseScraper):
@@ -9,13 +10,13 @@ class AboutScraper(BaseScraper):
 
     def scrape(self):
         """Fetches all links from sitemap and scrapes each page."""
-        exluce_urls = [
+        exclude_urls = [
             "https://empirecollege.in/newsletter/",
             "https://empirecollege.in/blogs/",
             "https://empirecollege.in/program/",
             "https://empirecollege.in/gallery/",
         ]
-        urls = self.fetch_sitemap_links(exclude=exluce_urls)
+        urls = self.fetch_sitemap_links(exclude=exclude_urls)
         try:
             self.url_len = len(urls)
             for index, url in enumerate(urls, start=1):
@@ -33,7 +34,7 @@ class AboutScraper(BaseScraper):
                     word_count = len(text.split())
                     num_paragraphs = text.count("\n")
 
-                    self.save_data(content=preprocess_text(text), index=index, url=url)
+                    self.save_data(content=_preprocess_text(text), index=index, url=url)
                     self.save_metadata(
                         id=index,
                         url=url,
