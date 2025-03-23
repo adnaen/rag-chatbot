@@ -4,7 +4,8 @@ from src.scraping.blog_scraper import BlogScraper
 from src.scraping.program_type_scraper import ProgramTypeScraper
 from src.scraping.about_scraper import AboutScraper
 from src.scraping.program_scraper import ProgramScraper
-from src.utils import BasePath, logger
+from src.config import logger
+from src.config import constants
 
 
 def run_scraper() -> None:
@@ -17,10 +18,10 @@ def run_scraper() -> None:
         None
     """
     SCRAPERS = (
-        BlogScraper(BasePath.BLOG_SITEMAP_URL),
-        ProgramTypeScraper(BasePath.PROGRAM_TYPE_SITEMAP_URL),
-        AboutScraper(BasePath.ABOUT_SITEMAP_URL),
-        ProgramScraper(BasePath.PROGRAM_SITEMAP_URL),
+        BlogScraper(constants.BLOG_SITEMAP_URL),
+        ProgramTypeScraper(constants.PROGRAM_TYPE_SITEMAP_URL),
+        AboutScraper(constants.ABOUT_SITEMAP_URL),
+        ProgramScraper(constants.PROGRAM_SITEMAP_URL),
     )
 
     for scraper in SCRAPERS:

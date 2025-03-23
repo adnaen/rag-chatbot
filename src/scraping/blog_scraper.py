@@ -1,7 +1,8 @@
 from colorama import Fore
 
 from src.scraping import BaseScraper
-from src.utils import logger, _preprocess_text
+from src.utils.data_utils import _preprocess_text
+from src.config import logger
 
 
 class BlogScraper(BaseScraper):
