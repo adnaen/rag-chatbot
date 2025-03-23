@@ -11,7 +11,10 @@ class BlogScraper(BaseScraper):
 
     def scrape(self):
         """Fetches all links from sitemap and scrapes each page."""
-        urls = self.fetch_sitemap_links()
+        exclude_urls = [
+            "https://empirecollege.in/blog/%e0%b4%85%e0%b4%ae%e0%b4%bf%e0%b4%a4-%e0%b4%b5%e0%b4%a3%e0%b5%8d%e0%b4%a3%e0%b4%82-%e0%b4%8e%e0%b4%a8%e0%b5%8d%e0%b4%a4%e0%b5%81%e0%b4%95%e0%b5%8a%e0%b4%a3%e0%b5%8d%e0%b4%9f%e0%b5%8d-%e0%b4%8e/",
+        ]
+        urls = self.fetch_sitemap_links(exclude=exclude_urls)
         try:
             self.url_len = len(urls)
             for index, url in enumerate(urls, start=1):

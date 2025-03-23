@@ -33,7 +33,16 @@ class ProgramScraper(BaseScraper):
                         num_paragraphs=num_paragraphs,
                         title=self.get_page_name(url),
                     )
-            else:
-                logger.error("there is no class such as 'program', scraping failed.")
+
+                else:
+                    logger.error(
+                        "there is no class such as 'program', scraping failed."
+                    )
+
+            global_info = {
+                "total_pages": self.url_len,
+                "category": self.category,
+            }
+            self.save_global_metadata(data=global_info)
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")

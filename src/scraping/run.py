@@ -25,12 +25,18 @@ def run_scraper() -> None:
     )
 
     for scraper in SCRAPERS:
-        logger.info(f"{Fore.GREEN}{scraper.category.upper()}'s HAS BEGUN.{Fore.RESET}")
-        scraper.scrape()
-        logger.info(
-            f"{Fore.GREEN}ALL {scraper.category.upper()}'s SUCCESSFULLY SCRAPED.{Fore.RESET}"
-        )
-        print(50 * f"{Fore.GREEN}*" + f"{Fore.RESET}")
+        try:
+            logger.info(
+                f"{Fore.GREEN}{scraper.category.upper()}'s HAS BEGUN.{Fore.RESET}"
+            )
+            scraper.scrape()
+            logger.info(
+                f"{Fore.GREEN}ALL {scraper.category.upper()}'s SUCCESSFULLY SCRAPED.{Fore.RESET}"
+            )
+            print(50 * f"{Fore.GREEN}*" + f"{Fore.RESET}")
+        except KeyboardInterrupt:
+            print("KeyboardInterrupt, Quitting...")
+            break
 
 
 if __name__ == "__main__":

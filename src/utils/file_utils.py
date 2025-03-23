@@ -1,11 +1,11 @@
 from typing import Any
-from pathlib import Path
+from pathlib import Path, PosixPath
 import json
 
 
 def _dump_json(content: Any, path: str | Path) -> str | Path:
     with open(path, "w", encoding="utf-8") as file:
-        json.dump(content, path, indent=4)
+        json.dump(content, file, indent=4)
     return path
 
 
