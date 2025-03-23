@@ -6,6 +6,7 @@ from src.scraping.about_scraper import AboutScraper
 from src.scraping.program_scraper import ProgramScraper
 from src.config import logger
 from src.config import constants
+from src.utils.state_utils import mark_completed
 
 
 def run_scraper() -> None:
@@ -37,6 +38,7 @@ def run_scraper() -> None:
         except KeyboardInterrupt:
             print("KeyboardInterrupt, Quitting...")
             break
+    mark_completed("data_ingestion")
 
 
 if __name__ == "__main__":

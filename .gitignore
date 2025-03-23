@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 artifacts/
+**state.pkl
 
 # Distribution / packaging
 .Python
