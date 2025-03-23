@@ -2,6 +2,7 @@ from pathlib import Path
 from src.config import paths, logger
 from src.utils.file_utils import _load_json
 from src.utils.data_utils import _generate_chunks
+from src.utils.state_utils import mark_completed
 
 
 def process_data():
@@ -16,3 +17,5 @@ def process_data():
                 category=item["category"],
             )
         logger.info(f"Successfully generate chunks on {item['category']} data.")
+
+    mark_completed("data_preprocessing")
