@@ -1,7 +1,7 @@
 from colorama import Fore
 
-from src.scraping import BaseScraper, preprocess_text
-from src.utils import logger
+from src.scraping import BaseScraper
+from src.utils import logger, _preprocess_text
 
 
 class ProgramScraper(BaseScraper):
@@ -24,7 +24,7 @@ class ProgramScraper(BaseScraper):
                     word_count = len(text.split())
                     num_paragraphs = text.count("\n")
 
-                    self.save_data(content=preprocess_text(text), index=index, url=url)
+                    self.save_data(content=_preprocess_text(text), index=index, url=url)
                     self.save_metadata(
                         id=index,
                         url=url,

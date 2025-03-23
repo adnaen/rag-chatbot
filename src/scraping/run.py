@@ -1,7 +1,7 @@
 from colorama import Fore
 
 from src.scraping.blog_scraper import BlogScraper
-from src.scraping.programtype_scraper import ProgramTypeScraper
+from src.scraping.program_type_scraper import ProgramTypeScraper
 from src.scraping.about_scraper import AboutScraper
 from src.scraping.program_scraper import ProgramScraper
 from src.utils import BasePath, logger
