@@ -1,5 +1,6 @@
 from src.scraping import run_scraper
 from src.scraping.process_data import process_data
+from src.embeddings.generate_embeddings import generate_embeddings
 from src.config import logger
 from src.utils.state_utils import is_completed
 
@@ -17,6 +18,12 @@ def main():
         else process_data()
     )
 
+    (
+        logger.info("Embeddings are Already generated.")
+        if is_completed("generate_embeddings")
+        else generate_embeddings()
+    )
+
     quite: bool = False
     while not quite:
         is_have_to_run = input(
@@ -26,6 +33,7 @@ def main():
             case "yes":
                 run_scraper()
                 process_data()
+                generate_embeddings()
             case "no":
                 quite = True
                 return

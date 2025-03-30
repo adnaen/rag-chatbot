@@ -32,8 +32,6 @@ class BlogScraper(BaseScraper):
                     self.save_metadata(
                         id=index,
                         url=url,
-                        word_count=word_count,
-                        num_paragraphs=num_paragraphs,
                         title=self.get_page_name(url),
                     )
 

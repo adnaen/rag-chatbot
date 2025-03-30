@@ -5,7 +5,11 @@ from src.config import paths
 
 STATE_FILE = paths.CONFIG_DIR / "state.pkl"
 
-default_state = {"data_ingestion": False, "data_preprocessing": False}
+default_state = {
+    "data_ingestion": False,
+    "data_preprocessing": False,
+    "generate_embeddings": False,
+}
 
 
 def _init_state() -> None:
