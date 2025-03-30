@@ -1,6 +1,6 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
-from config.paths import DB_DIR
+from src.config.paths import DB_DIR
 
 
 def get_collection(collection_name: str) -> chromadb.Collection:
