@@ -90,7 +90,8 @@ class BaseScraper:
 
         pattern = r"[^/]+(?=\/?$)"
         match = re.search(pattern, url)
-        return match.group()
+        result = match.group()
+        return result.replace("_", " ").title()
 
     def save_data(self, content: Any, index: int, url: str) -> None:
         """Saves extracted text and metadata.
@@ -113,21 +114,13 @@ class BaseScraper:
         self,
         id: int,
         title: str,
-        word_count: int,
-        num_paragraphs: int,
         url: str,
-        status: bool = True,
-        err_msg: str | None = None,
     ) -> None:
         """
         Args:
             id (int) : index like.
             title (str) : title of the stored file.
-            word_count (int)
-            num_paragraphs (int)
             url (URL_LIKE) : fetched domain.
-            status (bool) : either scrap success or not.
-            err_msg (str) | None : if status is false, what is the reason for it.
 
         Returns:
             None
@@ -139,11 +132,6 @@ class BaseScraper:
             "file_name": self.filename,
             "title": title,
             "processed_path": str(self.save_dir / self.filename),
-            "date_scraped": str(datetime.now()),
-            "word_count": word_count,
-            "num_paragraphs": num_paragraphs,
-            "scraped_status": "success" if status else "failed",
-            "error_message": err_msg,
         }
         metadata = []
         if os.path.exists(metadata_file):
