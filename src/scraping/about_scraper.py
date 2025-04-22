@@ -31,15 +31,11 @@ class AboutScraper(BaseScraper):
                         f"{Fore.YELLOW}Successfully scraped {index}/{self.url_len}{Fore.GREEN} {self.category} {Fore.RESET}{url}"
                     )
                     text = about_content.get_text(separator="\n", strip=True)
-                    word_count = len(text.split())
-                    num_paragraphs = text.count("\n")
 
                     self.save_data(content=_preprocess_text(text), index=index, url=url)
                     self.save_metadata(
                         id=index,
                         url=url,
-                        word_count=word_count,
-                        num_paragraphs=num_paragraphs,
                         title=self.get_page_name(url),
                     )
                 else:

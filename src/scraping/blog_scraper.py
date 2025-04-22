@@ -25,8 +25,6 @@ class BlogScraper(BaseScraper):
                         f"{Fore.YELLOW}successfully scraped {index}/{len(urls)}{Fore.GREEN} {self.category} {Fore.RESET}{url}"
                     )
                     text = blog_content.get_text(separator="\n", strip=True)
-                    word_count = len(text.split())
-                    num_paragraphs = text.count("\n")
 
                     self.save_data(content=_preprocess_text(text), index=index, url=url)
                     self.save_metadata(
