@@ -1,12 +1,12 @@
 from pathlib import Path
-from src.config import paths, logger
+from src.config import logger, Settings
 from src.utils.file_utils import _load_json
 from src.utils.data_utils import _generate_chunks
 from src.utils.state_utils import mark_completed
 
 
 def process_data():
-    GLOBAL_METADATA_PATH = paths.DATA_DIR / "raw" / "metadata.json"
+    GLOBAL_METADATA_PATH = Settings.DATA_DIR / "raw" / "metadata.json"
     content = _load_json(GLOBAL_METADATA_PATH)
     for item in content:
         sub_metadata = _load_json(Path(item["stored_path"]) / "metadata.json")

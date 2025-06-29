@@ -1,12 +1,10 @@
 from colorama import Fore
-
-from src.scraping.blog_scraper import BlogScraper
-from src.scraping.program_type_scraper import ProgramTypeScraper
-from src.scraping.about_scraper import AboutScraper
-from src.scraping.program_scraper import ProgramScraper
-from src.config import logger
-from src.config import constants
-from src.utils.state_utils import mark_completed
+from src.core import logger, Settings
+from src.utils.state_utils import mark_as_completed
+from src.services.scrapers.blogs import BlogScraper
+from src.services.scrapers.about import AboutScraper
+from src.services.scrapers.programs import ProgramScraper
+from src.services.scrapers.program_types import ProgramTypeScraper
 
 
 def run_scraper() -> None:
@@ -19,10 +17,10 @@ def run_scraper() -> None:
         None
     """
     SCRAPERS = (
-        BlogScraper(constants.BLOG_SITEMAP_URL),
-        ProgramTypeScraper(constants.PROGRAM_TYPE_SITEMAP_URL),
-        AboutScraper(constants.ABOUT_SITEMAP_URL),
-        ProgramScraper(constants.PROGRAM_SITEMAP_URL),
+        BlogScraper(Settings.BLOG_SITEMAP_URL),
+        ProgramTypeScraper(Settings.PROGRAM_TYPE_SITEMAP_URL),
+        AboutScraper(Settings.ABOUT_SITEMAP_URL),
+        ProgramScraper(Settings.PROGRAM_SITEMAP_URL),
     )
 
     for scraper in SCRAPERS:
@@ -38,7 +36,7 @@ def run_scraper() -> None:
         except KeyboardInterrupt:
             print("KeyboardInterrupt, Quitting...")
             break
-    mark_completed("data_ingestion")
+    mark_as_completed("data_ingestion")
 
 
 if __name__ == "__main__":

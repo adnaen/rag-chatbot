@@ -8,6 +8,7 @@ __pycache__/
 
 artifacts/
 **state.pkl
+**models/
 
 # Distribution / packaging
 .Python

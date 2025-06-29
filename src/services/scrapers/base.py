@@ -1,12 +1,10 @@
+from typing import Any, List
 import os
-from typing import Any
 import requests
+from colorama import Fore
 from datetime import datetime
 from bs4 import BeautifulSoup
-from colorama import Fore
-
-from src.config import logger
-from src.config import paths
+from src.core import logger, Settings
 from src.utils.file_utils import _save_file, _load_json, _dump_json
 
 
@@ -24,21 +22,21 @@ class BaseScraper:
         """
         self.category = category
         self.sitemap_url = sitemap_url
-        self.save_dir = paths.DATA_DIR / f"raw/{category}s"
+        self.save_dir = Settings.DATA_DIR / f"raw/{category}s"
         os.makedirs(self.save_dir, exist_ok=True)
         logger.info(
             f"Initialize BaseScraper with\ncategory: {self.category}\nsitemap url: {self.sitemap_url}\nsave dir: {self.save_dir}"
         )
 
-    def fetch_sitemap_links(self, exclude: list[str] | None = None) -> list[str]:
+    def fetch_sitemap_links(self, exclude: List[str] | None = None) -> List[str]:
         """
         fetch all child pages url from the sitemap.
 
         Args:
-            exclude (list[str]) : list of urls to exclude from the fetched urls.
+            exclude (List[str]) : List of urls to exclude from the fetched urls.
 
         Returns:
-            list[str] : list of urls
+            List[str] : List of urls
         """
         logger.info(f"Fetching urls from : {self.sitemap_url}")
         try:
@@ -148,7 +146,7 @@ class BaseScraper:
         Returns:
             None
         """
-        metadata_file = paths.DATA_DIR / "raw/metadata.json"
+        metadata_file = Settings.DATA_DIR / "raw/metadata.json"
         metadata = []
         if os.path.exists(metadata_file):
             metadata = _load_json(path=metadata_file)
