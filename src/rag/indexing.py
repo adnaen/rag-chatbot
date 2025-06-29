@@ -1,5 +1,5 @@
 import os
-import chromadb
+from chromadb import PersistentClient
 from sentence_transformers import SentenceTransformer
 from src.config import paths
 from src.utils.file_utils import _load_file
@@ -8,9 +8,9 @@ from src.utils.state_utils import mark_completed
 
 class ChromaVectorStore:
     def __init__(self, encoder_name: str = "all-MiniLM-L6-v2") -> None:
-        self.encoder = SentenceTransformer(encoder_name)
-        self._client = chromadb.PersistentClient(path=str(paths.DB_DIR))
-        self.collection = self._client.get_or_create_collection(
+        self.embedder = SentenceTransformer(model_name=encoder_name)
+        self.client = PersistentClient(path=str(paths.DB_DIR))
+        self.collection = self.client.get_or_create_collection(
             name="chatbot_embeddings"
         )
 

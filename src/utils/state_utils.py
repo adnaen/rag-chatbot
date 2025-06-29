@@ -1,9 +1,9 @@
-import pickle
 import os
+import pickle
 from typing import Any
-from src.config import paths
+from src.config import Settings
 
-STATE_FILE = paths.CONFIG_DIR / "state.pkl"
+STATE_FILE = Settings.CONFIG_DIR / "state.pkl"
 
 default_state = {
     "data_ingestion": False,
@@ -36,7 +36,7 @@ def is_completed(task: str) -> bool:
     return True if state.get(task, False) else False
 
 
-def mark_completed(task: str) -> None:
+def mark_as_completed(task: str) -> None:
     state = _load_state()
     state[task] = True
     _save_state(state)

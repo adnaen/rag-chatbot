@@ -1,6 +1,0 @@
-BASE_URL: str = "https://empirecollege.in/"
-SITEMAP_INDEX_URL: str = "https://empirecollege.in/sitemap_index.xml"
-BLOG_SITEMAP_URL: str = "https://empirecollege.in/post-sitemap.xml"
-PROGRAM_TYPE_SITEMAP_URL: str = "https://empirecollege.in/program-type-sitemap.xml"
-ABOUT_SITEMAP_URL: str = "https://empirecollege.in/page-sitemap.xml"
-PROGRAM_SITEMAP_URL: str = "https://empirecollege.in/program-sitemap.xml"

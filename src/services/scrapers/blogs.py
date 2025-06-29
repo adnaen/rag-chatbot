@@ -1,8 +1,7 @@
 from colorama import Fore
-
-from src.scraping import BaseScraper
+from src.core import logger, Settings
 from src.utils.data_utils import _preprocess_text
-from src.config import logger
+from src.services.scrapers.base import BaseScraper
 
 
 class BlogScraper(BaseScraper):
@@ -11,10 +10,7 @@ class BlogScraper(BaseScraper):
 
     def scrape(self):
         """Fetches all links from sitemap and scrapes each page."""
-        exclude_urls = [
-            "https://empirecollege.in/blog/%e0%b4%85%e0%b4%ae%e0%b4%bf%e0%b4%a4-%e0%b4%b5%e0%b4%a3%e0%b5%8d%e0%b4%a3%e0%b4%82-%e0%b4%8e%e0%b4%a8%e0%b5%8d%e0%b4%a4%e0%b5%81%e0%b4%95%e0%b5%8a%e0%b4%a3%e0%b5%8d%e0%b4%9f%e0%b5%8d-%e0%b4%8e/",
-        ]
-        urls = self.fetch_sitemap_links(exclude=exclude_urls)
+        urls = self.fetch_sitemap_links(exclude=Settings.EXCLUDE_URLS)
         try:
             self.url_len = len(urls)
             for index, url in enumerate(urls, start=1):

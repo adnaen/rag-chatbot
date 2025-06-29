@@ -1,6 +1,6 @@
-from typing import Any
-from pathlib import Path, PosixPath
 import json
+from typing import Any
+from pathlib import Path
 
 
 def _dump_json(content: Any, path: str | Path) -> str | Path:
