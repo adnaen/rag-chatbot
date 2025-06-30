@@ -1,7 +1,7 @@
 import os
 import pickle
 from typing import Any
-from src.config import Settings
+from src.core import Settings
 
 STATE_FILE = Settings.CONFIG_DIR / "state.pkl"
 

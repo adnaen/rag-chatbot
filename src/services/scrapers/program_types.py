@@ -1,7 +1,7 @@
 from colorama import Fore
-from src.config import logger
+from src.core import logger
 from src.services.scrapers.base import BaseScraper
-from src.utils.data_utils import _preprocess_text
+from src.utils import clean_text
 
 
 class ProgramTypeScraper(BaseScraper):
@@ -22,22 +22,12 @@ class ProgramTypeScraper(BaseScraper):
                     )
                     text = programtype_content.get_text(separator="\n", strip=True)
 
-                    self.save_data(content=_preprocess_text(text), index=index, url=url)
-                    self.save_metadata(
-                        id=index,
-                        url=url,
-                        title=self.get_page_name(url),
-                    )
+                    self.save_data(content=clean_text(text), index=index, url=url)
 
                 else:
                     logger.error(
                         "there is no class such as 'program page', scraping failed."
                     )
 
-            global_info = {
-                "total_pages": str(self.url_len),
-                "category": str(self.category),
-            }
-            self.save_global_metadata(data=global_info)
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")

@@ -1,6 +1,6 @@
 from colorama import Fore
 from src.core import logger, Settings
-from src.utils.state_utils import mark_as_completed
+from src.utils import mark_as_completed
 from src.services.scrapers.blogs import BlogScraper
 from src.services.scrapers.about import AboutScraper
 from src.services.scrapers.programs import ProgramScraper

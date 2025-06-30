@@ -2,23 +2,23 @@ from typing import Any, List
 import os
 import requests
 from colorama import Fore
-from datetime import datetime
 from bs4 import BeautifulSoup
 from src.core import logger, Settings
-from src.utils.file_utils import _save_file, _load_json, _dump_json
+from src.utils.file_utils import _save_file
 
 
 class BaseScraper:
     """
-    BaseScraper class which contain all steps to be perform while scraping
+    BaseScraper class which contain all steps to be perform scraping
     """
 
     def __init__(self, category: str, sitemap_url: str) -> None:
         """
         Initializing BaseScraper class.
+
         Args:
-            category (str) : category to be scrap, !!it should be singular!!.
-            sitemap_url (URL_LIKE) : sitemap index link to the category
+            category (str) : category to be scrap
+            sitemap_url (URL_LIKE) : sitemap index link
         """
         self.category = category
         self.sitemap_url = sitemap_url
@@ -107,54 +107,6 @@ class BaseScraper:
             logger.info(f"{Fore.YELLOW}file saved in{Fore.RESET} {file_path}")
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")
-
-    def save_metadata(
-        self,
-        id: int,
-        title: str,
-        url: str,
-    ) -> None:
-        """
-        Args:
-            id (int) : index like.
-            title (str) : title of the stored file.
-            url (URL_LIKE) : fetched domain.
-
-        Returns:
-            None
-        """
-        metadata_file = self.save_dir / "metadata.json"
-        data = {
-            "id": id,
-            "url": url,
-            "file_name": self.filename,
-            "title": title,
-            "processed_path": str(self.save_dir / self.filename),
-        }
-        metadata = []
-        if os.path.exists(metadata_file):
-            metadata = _load_json(path=metadata_file)
-        metadata.append(data)
-
-        _dump_json(content=metadata, path=metadata_file)
-
-    def save_global_metadata(self, data: dict) -> None:
-        """Save global metadata for the category.
-        Args:
-            data (dict) : metadata to be stored.
-
-        Returns:
-            None
-        """
-        metadata_file = Settings.DATA_DIR / "raw/metadata.json"
-        metadata = []
-        if os.path.exists(metadata_file):
-            metadata = _load_json(path=metadata_file)
-
-        data.update({"stored_path": str(self.save_dir)})
-        metadata.append(data)
-
-        _dump_json(content=metadata, path=metadata_file)
 
     def scrape(self):
         """This method should be implemented by child classes."""
