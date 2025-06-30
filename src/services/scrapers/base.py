@@ -1,10 +1,9 @@
-from typing import Any, List
 import os
 import requests
+from typing import Any, List
 from colorama import Fore
 from bs4 import BeautifulSoup
-from src.core import logger, Settings
-from src.utils.file_utils import _save_file
+from src.core import logger, settings
 
 
 class BaseScraper:
@@ -22,7 +21,7 @@ class BaseScraper:
         """
         self.category = category
         self.sitemap_url = sitemap_url
-        self.save_dir = Settings.DATA_DIR / f"raw/{category}s"
+        self.save_dir = settings.DATA_DIR / f"raw/{category}s"
         os.makedirs(self.save_dir, exist_ok=True)
         logger.info(
             f"Initialize BaseScraper with\ncategory: {self.category}\nsitemap url: {self.sitemap_url}\nsave dir: {self.save_dir}"
@@ -103,7 +102,9 @@ class BaseScraper:
         try:
             self.filename = f"{self.get_page_name(url)}.txt"
             file_path = self.save_dir / self.filename
-            _save_file(content=content, path=file_path)
+            with open(file_path, "w") as file:
+                file.write(content)
+
             logger.info(f"{Fore.YELLOW}file saved in{Fore.RESET} {file_path}")
         except Exception as e:
             logger.exception(f"something went wrong as : {e}")

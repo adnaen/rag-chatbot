@@ -1,11 +1,11 @@
 from colorama import Fore
-from src.core import logger
-from src.services.scrapers.base import BaseScraper
+from src.core import logger, settings
 from src.utils import clean_text
+from src.services.scrapers.base import BaseScraper
 
 
 class ProgramScraper(BaseScraper):
-    def __init__(self, url):
+    def __init__(self, url: str = settings.PROGRAM_SITEMAP_URL):
         super().__init__(category="program", sitemap_url=url)
 
     def scrape(self):

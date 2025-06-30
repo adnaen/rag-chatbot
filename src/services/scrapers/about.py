@@ -1,16 +1,16 @@
 from colorama import Fore
-from src.core import logger, Settings
-from src.services.scrapers.base import BaseScraper
 from src.utils import clean_text
+from src.core import logger, settings
+from src.services.scrapers.base import BaseScraper
 
 
 class AboutScraper(BaseScraper):
-    def __init__(self, url):
+    def __init__(self, url: str = settings.ABOUT_SITEMAP_URL):
         super().__init__(category="about", sitemap_url=url)
 
     def scrape(self):
         """Fetches all links from sitemap and scrapes each page."""
-        urls = self.fetch_sitemap_links(exclude=Settings.EXCLUDE_URLS)
+        urls = self.fetch_sitemap_links(exclude=settings.EXCLUDE_URLS)
         try:
             self.url_len = len(urls)
             for index, url in enumerate(urls, start=1):

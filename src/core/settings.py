@@ -1,18 +1,21 @@
 from typing import List
 from pathlib import Path
-from dataclasses import dataclass
+from pydantic_settings import BaseSettings
 
 
-@dataclass
-class Settings:
+class Settings(BaseSettings):
 
     # paths
     PROJECT_DIR: Path = Path(__file__).resolve().parents[2]
     ARTIFACTS_DIR: Path = PROJECT_DIR / "artifacts"
-    DATA_DIR: Path = ARTIFACTS_DIR / "data"
-    CONFIG_DIR: Path = PROJECT_DIR / "src" / "config"
+    DATA_DIR: Path = ARTIFACTS_DIR / "data" / "raw"
     DB_DIR: Path = ARTIFACTS_DIR / "chroma_db"
     MODEL_DIR: Path = PROJECT_DIR / "models"
+
+    ABOUT_DATA_DIR: Path = DATA_DIR / "abouts"
+    PROGRAM_TYPE_DATA_DIR: Path = DATA_DIR / "programtypes"
+    PROGRAM_DATA_DIR: Path = DATA_DIR / "programs"
+    BLOGS_DATA_DIR: Path = DATA_DIR / "blogs"
 
     # scrapping URLs
     BASE_SITE_URL: str = "https://empirecollege.in"
@@ -31,3 +34,6 @@ class Settings:
 
     CHUNK_SIZE: int = 1500
     CHUNK_WRAP_SIZE: int = 200
+
+
+settings = Settings()

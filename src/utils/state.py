@@ -1,9 +1,9 @@
 import os
 import pickle
 from typing import Any
-from src.core import Settings
+from src.core import settings
 
-STATE_FILE = Settings.CONFIG_DIR / "state.pkl"
+STATE_FILE = settings.ARTIFACTS_DIR / "state.pkl"
 
 default_state = {
     "data_ingestion": False,

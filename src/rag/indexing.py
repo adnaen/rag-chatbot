@@ -1,20 +1,20 @@
 import os
 from chromadb import PersistentClient
 from sentence_transformers import SentenceTransformer
-from src.core import Settings
+from src.core import settings
 from src.utils import mark_as_completed
 
 
-class ChromaVectorStore:
+class ChromaStoreManager:
     def __init__(self, encoder_name: str = "all-MiniLM-L6-v2") -> None:
         self.embedder = SentenceTransformer(model_name=encoder_name)
-        self.client = PersistentClient(path=str(Settings.DB_DIR))
+        self.client = PersistentClient(path=str(settings.DB_DIR))
         self.collection = self.client.get_or_create_collection(
             name="chatbot_embeddings"
         )
 
     def generate_embeddings(self) -> bool:
-        chunk_folder = Settings.DATA_DIR / "preprocessed"
+        chunk_folder = settings.DATA_DIR / "preprocessed"
 
         for sections in os.listdir(chunk_folder):
             for file_name in os.listdir(chunk_folder / sections):
