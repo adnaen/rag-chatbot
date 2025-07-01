@@ -9,5 +9,23 @@
 A RAG chatbot that helps college website visitors to get accurate, context-aware answers by combining retrieval-based search with generative AI.
 
 
-#### License
+### Do
+
+scrap the data before start
+```bash
+make scrap  # to scrap data.
+```
+
+then,
+```bash
+make index  # add the retrived data into vector store.
+```
+
+And now run the FastAPI app.
+```bash
+make run
+```
+
+
+### License
 [MIT](LICENSE) 
