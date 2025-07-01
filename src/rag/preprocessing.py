@@ -1,5 +1,6 @@
 from typing import List
 from langchain_core.documents import Document
+from src.core import settings
 
 
 def load_documents(path: str) -> List[Document]:
@@ -14,8 +15,8 @@ def genarate_chunks(docs: List[Document]) -> List[Document]:
 
     splitter = RecursiveCharacterTextSplitter(
         separators=["\n\n", "\n", ".", " ", ""],
-        chunk_size=1500,
-        chunk_overlap=200,
+        chunk_size=settings.CHUNK_SIZE,
+        chunk_overlap=settings.CHUNK_OVERLAP,
     )
 
     return splitter.split_documents(docs)

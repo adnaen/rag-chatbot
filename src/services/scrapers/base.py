@@ -21,7 +21,7 @@ class BaseScraper:
         """
         self.category = category
         self.sitemap_url = sitemap_url
-        self.save_dir = settings.DATA_DIR / f"raw/{category}s"
+        self.save_dir = settings.DATA_DIR / f"{category}s"
         os.makedirs(self.save_dir, exist_ok=True)
         logger.info(
             f"Initialize BaseScraper with\ncategory: {self.category}\nsitemap url: {self.sitemap_url}\nsave dir: {self.save_dir}"

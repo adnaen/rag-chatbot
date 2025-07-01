@@ -9,8 +9,9 @@ class Settings(BaseSettings):
     PROJECT_DIR: Path = Path(__file__).resolve().parents[2]
     ARTIFACTS_DIR: Path = PROJECT_DIR / "artifacts"
     DATA_DIR: Path = ARTIFACTS_DIR / "data" / "raw"
-    DB_DIR: Path = ARTIFACTS_DIR / "chroma_db"
     MODEL_DIR: Path = PROJECT_DIR / "models"
+
+    CHROMA_DIR: Path = ARTIFACTS_DIR / "chroma"
 
     ABOUT_DATA_DIR: Path = DATA_DIR / "abouts"
     PROGRAM_TYPE_DATA_DIR: Path = DATA_DIR / "programtypes"
@@ -32,8 +33,12 @@ class Settings(BaseSettings):
         f"{BASE_SITE_URL}/blog/%e0%b4%85%e0%b4%ae%e0%b4%bf%e0%b4%a4-%e0%b4%b5%e0%b4%a3%e0%b5%8d%e0%b4%a3%e0%b4%82-%e0%b4%8e%e0%b4%a8%e0%b5%8d%e0%b4%a4%e0%b5%81%e0%b4%95%e0%b5%8a%e0%b4%a3%e0%b5%8d%e0%b4%9f%e0%b5%8d-%e0%b4%8e/",
     ]
 
-    CHUNK_SIZE: int = 1500
-    CHUNK_WRAP_SIZE: int = 200
+    CHUNK_SIZE: int = 1000
+    CHUNK_OVERLAP: int = 200
+
+    EMBEDDING_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
+
+    CHROMA_COLLECTION: str = "scraped_data"
 
 
 settings = Settings()
