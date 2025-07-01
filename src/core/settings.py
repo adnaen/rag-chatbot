@@ -9,8 +9,7 @@ class Settings(BaseSettings):
     PROJECT_DIR: Path = Path(__file__).resolve().parents[2]
     ARTIFACTS_DIR: Path = PROJECT_DIR / "artifacts"
     DATA_DIR: Path = ARTIFACTS_DIR / "data" / "raw"
-    MODEL_DIR: Path = PROJECT_DIR / "models"
-
+    MODEL_DIR: Path = ARTIFACTS_DIR / "models"
     CHROMA_DIR: Path = ARTIFACTS_DIR / "chroma"
 
     ABOUT_DATA_DIR: Path = DATA_DIR / "abouts"
@@ -37,6 +36,7 @@ class Settings(BaseSettings):
     CHUNK_OVERLAP: int = 200
 
     EMBEDDING_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
+    LLM: str = "tinyllama_1_1b_chat_v1_0_gguf"
 
     CHROMA_COLLECTION: str = "scraped_data"
 

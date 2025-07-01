@@ -21,6 +21,20 @@ then,
 make index  # add the retrived data into vector store.
 ```
 
+download model locally
+```bash
+make download-model
+```
+
+  - About Model
+
+|` |  `  |
+|---|-|
+|`Model used`    | TinyLlama-1.1b-chat-v1.0|
+|`Architecture`  | LlaMa                   |
+|`Quantized`     | true                    |
+|`Size`          | 1.17 GB                 |
+
 And now run the FastAPI app.
 ```bash
 make run
