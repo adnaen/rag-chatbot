@@ -8,3 +8,5 @@ download-model:
 
 	PYTHONPATH=. python scripts/download_model.py
 
+run:
+	PYTHONPATH=./src uvicorn main:app --reload --host localhost --port 8000
