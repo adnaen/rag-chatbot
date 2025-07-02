@@ -1,25 +1,38 @@
-from llama_cpp import Llama
 from langchain.prompts import ChatPromptTemplate
-from src.config import paths
+from langchain_community.chat_models.llamacpp import ChatLlamaCpp
+from src.core import settings
 
 
-class LLMManager:
-    def __init__(self, model_path: str) -> None:
-        self.llm = Llama(
-            model_path=str(paths.MODEL_DIR / "model.gguf"),
+class LLMInferenceManager:
+    def __init__(self) -> None:
+        self.llm = ChatLlamaCpp(
+            model_path=str(settings.MODEL_DIR / f"{settings.LLM}.gguf"),
             verbose=False,
+            top_p=settings.LLM_TOP_P,
+            top_k=settings.LLM_TOP_K,
+            temperature=settings.LLM_TEMPERATURE,
+            n_threads=settings.N_THREADS,
+            n_ctx=settings.N_CTX,
+            max_tokens=settings.MAX_TOKENS,
         )
 
-    def set_prompt(self, **kwargs) -> str:
+    def ask(self, query: str, context: str) -> str:
+        prompt = self._set_prompt()
+        chain = prompt | self.llm
+        output = chain.invoke({"context": context, "query": query})
+        return output.content
+
+    def _set_prompt(self) -> ChatPromptTemplate:
         template = ChatPromptTemplate.from_messages(
             messages=[
-                ("system", "you're an helpfull ai assistant."),
-                ("user", "hello from user"),
+                (
+                    "system",
+                    "Your an AI Assistant for  Empire College Of Science. Answer only using the provided context. If the answer is not in the context or unclear, replay with 'I Dont know about this, Please contact college.' Keep the response brief and simple.",
+                ),
+                (
+                    "user",
+                    "Context:\n{context}\n\nUser Query: {query}\nResponse strictly based on the context only.",
+                ),
             ]
         )
-
-        return template.format(**kwargs)
-
-    def generate_response(self, prompt: str, max_length: int = 100) -> str:
-        output = self.llm(prompt=prompt, max_tokens=500, temperature=0.7, top_p=0.9)
-        return output["choices"][0]["text"]
+        return template

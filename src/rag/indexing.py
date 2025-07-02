@@ -30,6 +30,7 @@ class ChromaStoreManager:
         except Exception as e:
             return False, str(e)
 
-    def retriever(self, query: str) -> List[Document]:
-        docs = self.chroma.similarity_search(query=query)
-        return docs
+    def retriever(self, query: str) -> str:
+        docs = self.chroma.similarity_search(query=query, k=4)
+        merged_docs = ".".join([each.page_content for each in docs])
+        return merged_docs
