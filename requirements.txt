@@ -7,3 +7,8 @@ requests==2.32.3
 soupsieve==2.6
 sentence-transformers==4.0.1
 chromadb==0.6.3
+langchain==0.3.26
+langchain-chroma==0.2.4
+langchain-huggingface==0.3.0
+llama-cpp-python==0.3.9
+fastapi==0.112.0
