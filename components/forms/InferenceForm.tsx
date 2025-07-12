@@ -14,7 +14,7 @@ const InferenceForm = () => {
 		<form className="w-full relative" onSubmit={handleInferenceFormSubmittion}>
 			<Textarea
 				placeholder="Ask..."
-				className="w-full p-5 pr-20 text-xl rounded-3xl overflow-y-auto h-20 resize-none"
+				className="w-full p-5 backdrop-blur-lg pr-20 text-xl rounded-3xl overflow-y-auto h-20 resize-none"
 				value={prompt}
 				onChange={(e) => { setPrompt(e.target.value); }}
 			/>

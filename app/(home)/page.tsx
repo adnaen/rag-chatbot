@@ -4,8 +4,8 @@ import LandingChatLayout from "@/components/layouts/LandingChatLayout";
 
 export default function Home() {
   return (
-    <div className="">
-      <LandingChatLayout />
+    <div className="relative overflow-scroll">
+      {/* <LandingChatLayout /> */}
       <ActiveChatLayout />
     </div>
   );
