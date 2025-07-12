@@ -1,7 +1,7 @@
 import { getGreetings } from "@/utils/getGreetings";
 import InferenceForm from "../forms/InferenceForm";
 
-const LandingChatLayout = () => {
+const LandingChatLayout = ({ onSubmit }: { onSubmit: () => void }) => {
 	const greet = getGreetings();
 	return (
 		<>
@@ -17,7 +17,7 @@ const LandingChatLayout = () => {
 						Empire College Of Science
 					</span>
 				</p>
-				<InferenceForm />
+				<InferenceForm onSubmit={onSubmit} />
 			</div>
 		</>
 	)

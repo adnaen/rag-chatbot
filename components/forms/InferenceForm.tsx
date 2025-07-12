@@ -3,11 +3,12 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { CircleArrowRight } from "lucide-react";
 
-const InferenceForm = () => {
+const InferenceForm = ({ onSubmit }: { onSubmit: () => void }) => {
 	const [prompt, setPrompt] = useState<string>("");
 	const handleInferenceFormSubmittion = (e: React.FormEvent) => {
 		e.preventDefault()
 		console.log(prompt)
+		onSubmit()
 	}
 
 	return (
