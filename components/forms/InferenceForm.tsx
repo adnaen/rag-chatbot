@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { CircleArrowRight } from "lucide-react";
+import { TChat } from "@/types/common";
 
-const InferenceForm = ({ onSubmit }: { onSubmit: () => void }) => {
+const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChat) => void }) => {
 	const [prompt, setPrompt] = useState<string>("");
 	const handleInferenceFormSubmittion = (e: React.FormEvent) => {
 		e.preventDefault()
 		console.log(prompt)
-		onSubmit()
+		onSubmit({ "prompt": prompt })
 	}
 
 	return (
