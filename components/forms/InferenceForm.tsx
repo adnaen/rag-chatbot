@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
+import { CircleArrowRight } from "lucide-react";
 
 const InferenceForm = () => {
 	const [prompt, setPrompt] = useState<string>("");
@@ -18,8 +19,9 @@ const InferenceForm = () => {
 				onChange={(e) => { setPrompt(e.target.value); }}
 			/>
 			<Button
-				className="bg-white text-black hover:bg-white/80 hover:text-black hover:cursor-pointer absolute top-5 right-4">
-				Ask
+				variant={"ghost"}
+				className="hover:cursor-pointer absolute top-5 right-4">
+				<CircleArrowRight />
 			</Button>
 		</form >
 	)
