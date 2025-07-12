@@ -12,7 +12,6 @@ export default function Home() {
   return (
     <div className="w-full h-screen">
       {!hasInteracted ? (
-
         <div className="flex w-full h-full justify-center items-center flex-col">
           <LandingChatLayout onSubmit={onSubmit} />
         </div>

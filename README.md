@@ -73,7 +73,7 @@ T.V. For guidance in this regard.
 > [!NOTE]
 > All this response based on the latest [college website](https://empirecollege.in/) data.
 >
-> `Please verify important needs before preceed.`
+> `Please verify important needs before proceed.`
 
 ### License
 [MIT](LICENSE)

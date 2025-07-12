@@ -22,7 +22,7 @@ const ChatInterface = () => {
 	return (
 		<div>
 			{demoData.map((each) => (
-				<div>
+				<div className="mb-15">
 					<div className="flex justify-end mb-4 items-start gap-3">
 						<h1>{each.user}</h1>
 						<div className="rounded-tl-0 rounded-b-lg rounded-tr-lg bg-blue-500/30 p-3 text-white">
