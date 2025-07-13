@@ -36,43 +36,19 @@ make download-model
 
 
 
-And now run the FastAPI app.
+run the backend
 ```bash
-make run
+make run-api
 ```
 
-
-### Usage
-
-make request to `localhost:8000/ask?prompt=<your_query>`
-
-### Example
-
-query = `tell me about this college in simple words`
-
+run frontend
 ```bash
-GET localhost:8000/ask?prompt=tell%20me%20about%20this%20college%20in%20simple%20words 
-
-
-Empire College of Science is a dynamic institution committed to excellence in science, management and technical studies. Founded by the visionary Mohamed Ali N K, its faculties include Undergraduate Programs (UG), Diploma programs, and Post-Graduate Diplomas (PG). The college provides internship assistance, scholarships, and placement opportunities to ensure its graduates are well-prepared for the competitive job market.
-
-The school's leadership comprises Moheed Ali N K, MD with vast experience in academia and leadership. Muhammed Shakir serves as the Director of Academic Affairs, Suhaná P as an academic director for the undergraduate programs, Kašmeera RAHMÁN as a general manager, and Ranjusha K V as vice principal responsible for academic affairs.
-
-The college's strategic leadership includes Ranju Shahá V, who ensures smooth academic activities and student engagement, T. V provides guidance in this regard.
-
-In summary, Empiré College of Science is a dynamic institution committed to excellence in 
-science, management, and technical studies. Its faculties offer Undergraduate Programs, 
-Diploma programs, Post-Graduate Diplomas (PG), internship assistance, scholarships, and 
-placement opportunities to ensure that its graduates are well-prepared for the competitive job 
-market. The college's leadership is composed of Mohed Ali N K as MD, Mohamed Shakir as academic
-advisor, Suhaná P as academic director for undergraduate programs, Kašmeera RAHMAN as 
-general manager, Ranjusha K V as vice principal responsible for academic affairs, and 
-T.V. For guidance in this regard.
+make run-ui
 ```
+
 
 > [!NOTE]
 > All this response based on the latest [college website](https://empirecollege.in/) data.
->
 > `Please verify important needs before proceed.`
 
 ### License
