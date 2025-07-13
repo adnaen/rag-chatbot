@@ -23,7 +23,7 @@ export class ChatService {
         method: "POST",
         body: JSON.stringify(newChat),
         headers: {
-          "Content-Type": "applications/json"
+          "Content-Type": "application/json"
         },
         credentials: "include",
       })

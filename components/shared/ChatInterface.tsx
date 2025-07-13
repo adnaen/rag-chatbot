@@ -2,24 +2,6 @@ import { TChat } from "@/types/common";
 import { Brain, User } from "lucide-react";
 
 const ChatInterface = ({ chat }: { chat: TChat }) => {
-	const demoData = [
-		{
-			user: "what is the capital of India?",
-			assistant: "The capital of India is New Delhi."
-		},
-		{
-			user: "Tell me about python programming language.",
-			assistant: "Python is an General purpose programming language. Created by Guido Van Rossum. It is an Open Source scripting language have a large active community. Python mainly used for scientific computing and web development"
-		},
-		{
-			user: "What is hot job in curretn IT market?",
-			assistant: "From the big tech companies relying mostly in AI we can say that AI relate job oppertunities will blow minds in future."
-		},
-		{
-			user: "What is Lorum ipsum",
-			assistant: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-		},
-	]
 	return (
 		<div className="mb-15">
 			<div className="flex justify-end mb-4 items-start gap-3">

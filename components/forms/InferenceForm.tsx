@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { CircleArrowRight } from "lucide-react";
-import { TChat } from "@/types/common";
+import { TChat, TChatCreate } from "@/types/common";
+import { ChatService } from "@/services/chat.service";
 
-const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChat) => void }) => {
+const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChatCreate) => void }) => {
 	const [prompt, setPrompt] = useState<string>("");
-	const handleInferenceFormSubmittion = (e: React.FormEvent) => {
+	const handleInferenceFormSubmittion = async (e: React.FormEvent) => {
 		e.preventDefault()
-		console.log(prompt)
 		onSubmit({ "prompt": prompt })
+		const result = await ChatService.addChat({ prompt: prompt, assistant: null })
+		console.log(`New Chat : ${result}`)
 	}
 
 	return (
@@ -21,7 +23,8 @@ const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChat) => void }) => {
 				onChange={(e) => { setPrompt(e.target.value); }}
 			/>
 			<Button
-				variant={"ghost"}
+				variant={"secondary"}
+				disabled={prompt.length > 0 ? false : true}
 				className="hover:cursor-pointer absolute top-5 right-4">
 				<CircleArrowRight />
 			</Button>

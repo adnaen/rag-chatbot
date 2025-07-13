@@ -1,20 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InferenceForm from "../forms/InferenceForm";
 import ChatInterface from "../shared/ChatInterface";
-import { TChat } from "@/types/common";
+import { TChat, TChatCreate } from "@/types/common";
+import { ChatService } from "@/services/chat.service";
 
 const ActiveChatLayout = () => {
 	const [chats, setChats] = useState<TChat[]>([]);
+	const [pendingChat, setPendingChat] = useState<TChatCreate | null>(null);
 
-	const onSubmit = (chat: TChat) => {
-		setChats((chats) => [...chats, chat])
+	useEffect(() => {
+		const fetchChats = async () => {
+			const result = await ChatService.getAllChats()
+			if (result !== null) {
+				setChats(result)
+			}
+		}
+		fetchChats()
+	}, [])
+
+	const onSubmit = (chat: TChatCreate) => {
+		setPendingChat(chat)
+		// setChats((chats) => [...chats, chat])
 	}
 
 	return (
 		<div className="max-h-screen flex flex-col">
 			<section className="flex-1 justify-center overflow-y-auto px-10 mt-24">
 				<div className="w-full max-w-3xl py-10 mx-auto">
-					<ChatInterface chat={chats.at(-1)} />
+					{chats.map((each) => (
+						<ChatInterface key={each.id} chat={each} />
+					))}
+
+					{pendingChat && (
+						<ChatInterface chat={{ prompt: pendingChat.prompt }} />
+					)}
 				</div>
 			</section>
 			<div className="w-full px-10 py-5">
