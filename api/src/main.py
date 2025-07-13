@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.core.db import Base, engine
 from src.rag.indexing import ChromaStoreManager
 from src.rag.generation import LLMInferenceManager
-from src.routes.llm_routes import router as llm_router
 from src.routes.chat_routes import router as chat_router
 
 
@@ -30,4 +29,3 @@ app.add_middleware(
     allow_credentials=True,
 )
 app.include_router(chat_router, prefix="/api")
-app.include_router(llm_router, prefix="/api")

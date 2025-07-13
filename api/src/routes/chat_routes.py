@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from src.schemas import ChatCreateSchema, ChatSchema
 from src.core.db import get_session
 from src.models import Chat
@@ -24,12 +24,13 @@ def get_all_chats(session=Depends(get_session)):
 
 
 @router.post("/chat", response_model=ChatSchema)
-def create_new_chat(chat: ChatCreateSchema, session=Depends(get_session)):
+def create_new_chat(
+    chat: ChatCreateSchema, request: Request, session=Depends(get_session)
+):
     try:
-        new_chat = Chat(
-            prompt=chat.prompt,
-            assistant=chat.assistant if chat.assistant is not None else None,
-        )
+        context = request.app.state.store.retriever(query=chat.prompt)
+        llm_response = request.app.state.llm.ask(query=chat.prompt, context=context)
+        new_chat = Chat(prompt=chat.prompt, assistant=llm_response)
         session.add(new_chat)
         session.commit()
         session.refresh(new_chat)
