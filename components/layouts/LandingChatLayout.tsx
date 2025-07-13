@@ -1,7 +1,8 @@
 import { getGreetings } from "@/utils/getGreetings";
 import InferenceForm from "../forms/InferenceForm";
+import { TChat, TChatCreate } from "@/types/common";
 
-const LandingChatLayout = ({ onSubmit }: { onSubmit: () => void }) => {
+const LandingChatLayout = ({ onSubmit }: { onSubmit: (chat: TChatCreate | null, allChats: TChat[] | null) => void }) => {
 	const greet = getGreetings();
 	return (
 		<>
