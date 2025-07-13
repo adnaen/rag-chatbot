@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     PROGRAM_DATA_DIR: Path = DATA_DIR / "programs"
     BLOGS_DATA_DIR: Path = DATA_DIR / "blogs"
 
+    # db config
+    SQLITE_URI: str = "sqlite:///./database.db"
+
     # scrapping URLs
     BASE_SITE_URL: str = "https://empirecollege.in"
     SITEMAP_INDEX_URL: str = f"{BASE_SITE_URL}/sitemap_index.xml"
