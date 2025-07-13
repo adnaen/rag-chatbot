@@ -1,7 +1,7 @@
-import { TChat } from "@/types/common";
+import { TChat, TChatCreate } from "@/types/common";
 import { Brain, User } from "lucide-react";
 
-const ChatInterface = ({ chat }: { chat: TChat }) => {
+const ChatInterface = ({ chat }: { chat: TChat | TChatCreate }) => {
 	return (
 		<div className="mb-15">
 			<div className="flex justify-end mb-4 items-start gap-3">

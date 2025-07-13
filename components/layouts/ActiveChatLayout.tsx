@@ -18,9 +18,17 @@ const ActiveChatLayout = () => {
 		fetchChats()
 	}, [])
 
-	const onSubmit = (chat: TChatCreate) => {
-		setPendingChat(chat)
-		// setChats((chats) => [...chats, chat])
+	const onSubmit = (chat: TChatCreate | null, allChats: TChat[] | null) => {
+		console.log(`active chat onsubmit called with : chat = ${chat} , allchat = ${allChats}`)
+		if (chat !== null) {
+			console.log(`pending chat setted as : ${chat}`)
+			setPendingChat(chat)
+
+		}
+		if (allChats !== null) {
+			setPendingChat(null)
+			setChats(allChats)
+		}
 	}
 
 	return (
