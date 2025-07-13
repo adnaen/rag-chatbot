@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { CircleArrowRight } from "lucide-react";
+import { CircleArrowRight, Loader } from "lucide-react";
 import { TChat, TChatCreate } from "@/types/common";
 import { ChatService } from "@/services/chat.service";
 
 const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChatCreate | null, allChats: TChat[] | null) => void }) => {
 	const [prompt, setPrompt] = useState<string>("");
+	const [isGenerating, setIsGenerating] = useState<boolean>(false);
 	const handleInferenceFormSubmittion = async (e: React.FormEvent) => {
 		e.preventDefault()
 
 		setPrompt("")
+		setIsGenerating(true);
 		console.log("pending task state called")
 		onSubmit({ "prompt": prompt }, null)
 
@@ -22,7 +24,7 @@ const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChatCreate | null, allC
 		const allChats = await ChatService.getAllChats()
 		console.log("after the all chat calling ")
 		onSubmit(null, allChats)
-
+		setIsGenerating(false)
 	}
 
 	return (
@@ -35,9 +37,13 @@ const InferenceForm = ({ onSubmit }: { onSubmit: (chat: TChatCreate | null, allC
 			/>
 			<Button
 				variant={"secondary"}
-				disabled={prompt.length > 0 ? false : true}
+				disabled={isGenerating ? true : prompt === "" ? true : false}
 				className="hover:cursor-pointer absolute top-5 right-4">
-				<CircleArrowRight />
+
+				{isGenerating ?
+					<Loader className="animate-spin" />
+					: <CircleArrowRight />
+				}
 			</Button>
 		</form >
 	)
