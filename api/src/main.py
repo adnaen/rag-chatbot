@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from src.core.db import Base, engine
 from src.rag.indexing import ChromaStoreManager
 from src.rag.generation import LLMInferenceManager
@@ -21,5 +22,12 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(chat_router)
-app.include_router(llm_router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
+app.include_router(chat_router, prefix="/api")
+app.include_router(llm_router, prefix="/api")
