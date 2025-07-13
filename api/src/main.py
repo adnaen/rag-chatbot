@@ -1,9 +1,13 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from src.core.db import Base, engine
 from src.rag.indexing import ChromaStoreManager
 from src.rag.generation import LLMInferenceManager
 from src.routes.llm_routes import router as llm_router
 from src.routes.chat_routes import router as chat_router
+
+
+Base.metadata.create_all(bind=engine)
 
 
 @asynccontextmanager
