@@ -1,6 +1,5 @@
 <div align="center" style="color: black;">
-  <span ><strong>RAG BASED CHATBOT</strong></span> <br> for <br>
-<img src="https://empirecollege.in/wp-content/uploads/2024/10/logo.svg" width="150" height="30"/>
+<img src="./public/preview.png"/>
 </div>
 
 ---
